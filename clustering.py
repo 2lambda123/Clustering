@@ -1,7 +1,13 @@
 # This is an implementation of https://arxiv.org/pdf/1604.00989.pdf, a modified
 # version of rank-order clustering.
 
+import numpy as np
+import logging
+
+import logging
+
 import pyflann
+from typing import List, Tuple
 import numpy as np
 from time import time
 from profilehooks import profile
@@ -14,6 +20,8 @@ def build_index(dataset, n_neighbors):
     Takes a dataset, returns the "n" nearest neighbors
     """
 # Initialize FLANN
+    import logging
+
     pyflann.set_distance_type(distance_type='euclidean')
     flann = pyflann.FLANN()
     params = flann.build_index(dataset,
@@ -25,6 +33,9 @@ def build_index(dataset, n_neighbors):
                                               checks=params['checks'])
 
     return nearest_neighbors, dists
+
+
+import logging
 
 
 def create_neighbor_lookup(nearest_neighbors):
