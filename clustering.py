@@ -4,6 +4,12 @@
 import numpy as np
 import logging
 from typing import Dict, List
+from time import time
+from multiprocessing import Pool
+from functools import partial
+import json
+import logging
+from typing import Dict, List
 import logging
 
 import logging
@@ -94,7 +100,24 @@ def calculate_symmetric_dist_row(nearest_neighbors, nn_lookup, row_no):
     return dist_row
 
 
-def calculate_symmetric_dist(app_nearest_neighbors):
+def calculate_symmetric_dist(app_nearest_neighbors: np.ndarray) -> np.ndarray: 
+    '''
+    This function calculates the symmetric distance matrix.
+    '''
+    try:
+        dist_calc_time = time()
+        nn_lookup = create_neighbor_lookup(app_nearest_neighbors)
+        d = np.zeros(app_nearest_neighbors.shape)
+        p = Pool(processes=4)
+        func = partial(calculate_symmetric_dist_row, app_nearest_neighbors, nn_lookup)
+        results = p.map(func, range(app_nearest_neighbors.shape[0]))
+        for row_no, row_val in enumerate(results):
+            d[row_no, :] = row_val
+        d_time = time()-dist_calc_time
+        print("Distance calculation time : {}".format(d_time))
+        return d
+    except Exception as e:
+        logging.error('Error in calculate_symmetric_dist: {}'.format(e))
     """
     This function calculates the symmetric distance matrix.
     """
