@@ -1,6 +1,8 @@
 # This is an implementation of https://arxiv.org/pdf/1604.00989.pdf, a modified
 # version of rank-order clustering.
 
+from typing import Dict, List, Tuple, Set
+import logging
 import numpy as np
 import logging
 from typing import Dict, List
