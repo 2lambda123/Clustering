@@ -1,22 +1,27 @@
-# Script to evaluate the performance of the clustering algorithm.
+import logging
+from typing import Dict, List, Tuple# Script to evaluate the performance of the clustering algorithm.
 import argparse
 from itertools import combinations
 from collections import defaultdict
 
 
-def count_correct_pairs(cluster, labels_lookup):
+def count_correct_pairs(cluster: list, labels_lookup: dict) -> Tuple[int, int]:
     """
-    Given a cluster, count the number of pairs belong to the same label and
+    Given a cluster, count the number of pairs belonging to the same label and
     the total number of pairs.
     """
-    total_pairs = 0
-    correct_pairs = 0
-    pairs = combinations(cluster, 2)
-    for f1, f2 in pairs:
-        if labels_lookup[f1] == labels_lookup[f2]:
-            correct_pairs += 1
-        total_pairs += 1
-    return correct_pairs, total_pairs
+    try:
+        total_pairs = 0
+        correct_pairs = 0
+        pairs = combinations(cluster, 2)
+        for f1, f2 in pairs:
+            if labels_lookup[f1] == labels_lookup[f2]:
+                correct_pairs += 1
+            total_pairs += 1
+        return correct_pairs, total_pairs
+    except Exception as e:
+        logging.error('An error occurred in count_correct_pairs: {}'.format(e))
+        raise
 
 
 def calculate_pairwise_pr(clusters, labels_lookup):
