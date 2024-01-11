@@ -90,6 +90,7 @@ def calculate_symmetric_dist_row(nearest_neighbors, nn_lookup, row_no):
             dist_row[0, Oi] = float(dij + dji)/min(Oi, Oj)
 
     # print dist_row
+    logging.debug('Symmetric distances calculation for row {} completed'.format(row_no))
     return dist_row
 
 
