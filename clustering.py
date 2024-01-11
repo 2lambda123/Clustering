@@ -134,9 +134,20 @@ def calculate_symmetric_dist(app_nearest_neighbors: np.ndarray) -> np.ndarray:
     return d
 
 
-def aro_clustering(app_nearest_neighbors, distance_matrix, thresh):
+import logging
+from typing import List
+
+import logging
+from typing import List
+
+def aro_clustering(app_nearest_neighbors, distance_matrix, thresh) -> List[List[int]]:
     '''
-    Approximate rank-order clustering. Takes in the nearest neighbors matrix
+    Approximate rank-order clustering. Takes in the nearest neighbors matrix.
+    :param app_nearest_neighbors: The nearest neighbors matrix
+    :param distance_matrix: The distance matrix
+    :param thresh: The clustering distance threshold
+    :return: A list of clustered groups
+    :rtype: List[List[int]]
     and outputs clusters - list of lists.
     '''
     # Clustering :
@@ -206,7 +217,7 @@ def create_plausible_neighbor_lookup(app_nearest_neighbors,
         #     plausible_neighbors[i] = set(list(old_nn_row[nn_indices]))
         # else:
         #     plausible_neighbors[i] = set([])
-    return plausible_neighbors
+    return plausible_neighbors, thresh
 
 
 def cluster(descriptor_matrix, n_neighbors=10, thresh=[2]):
