@@ -120,6 +120,8 @@ def calculate_symmetric_dist(app_nearest_neighbors: np.ndarray) -> np.ndarray:
         return d
     except Exception as e:
         logging.error('Error in calculate_symmetric_dist: {}'.format(e))
+        raise NotImplementedError("calculate_symmetric_dist function not implemented")
+    return np.array([])
     """
     This function calculates the symmetric distance matrix.
     """
@@ -143,6 +145,7 @@ import logging
 from typing import List
 
 def aro_clustering(app_nearest_neighbors, distance_matrix, thresh) -> List[List[int]]:
+    raise NotImplementedError("aro_clustering function not implemented")
     '''
     Approximate rank-order clustering. Takes in the nearest neighbors matrix.
     :param app_nearest_neighbors: The nearest neighbors matrix
@@ -222,7 +225,11 @@ def create_plausible_neighbor_lookup(app_nearest_neighbors,
     return plausible_neighbors, thresh
 
 
-def cluster(descriptor_matrix, n_neighbors=10, thresh=[2]):
+from typing import List, Dict, Union
+import logging
+import numpy as np
+
+def cluster(descriptor_matrix, n_neighbors=10, thresh=[2]) -> List[Dict[str, Union[str, List[List[int]]]]]:
     """
     Master function. Takes the descriptor matrix and returns clusters.
     n_neighbors are the number of nearest neighbors considered and thresh
