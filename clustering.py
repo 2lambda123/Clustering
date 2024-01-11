@@ -3,6 +3,8 @@
 
 import numpy as np
 import logging
+from typing import Dict, List
+import logging
 
 import logging
 
@@ -44,7 +46,7 @@ def create_neighbor_lookup(nearest_neighbors):
     """
     nn_lookup = {}
     for i in range(nearest_neighbors.shape[0]):
-        nn_lookup[i] = nearest_neighbors[i, :]
+        nn_lookup[i] = nearest_neighbors[i, :].copy()
     # print "NN Lookup :",nn_lookup
     return nn_lookup
 
